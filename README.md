@@ -16,13 +16,14 @@ Before :  https://github.com/9nh5/Todo
 
 <h2>API</h2>
 
-![스크린샷 2024-01-19 133927](https://github.com/9nh5/TodoProject/assets/151013731/1d4cf01e-e824-4128-8528-10bae5bdd2f7)
+![image](https://github.com/9nh5/TodoProject/assets/151013731/3be955bc-85ca-4ec3-a0ef-155c55b6d290)
+
 
 
 
 <h2>ERD</h2>
 
-![image](https://github.com/9nh5/TodoProject/assets/151013731/35e3a4c5-baeb-4a59-8814-197f334c7a8c)
+![image](https://github.com/9nh5/TodoProject/assets/151013731/72552a0a-0fa7-43fe-9741-6173e2db853c)
 
 
 
@@ -41,3 +42,10 @@ Before :  https://github.com/9nh5/Todo
 리스트 조회
 
 <h2>기능</h2>
+회원가입-로그인
+할일카드(post) - 생성,  수정,삭제(작성자만 가능)
+할일카드 조회 - 작성자 이름, 할일카드 제목으로 조회, 단건 조회 (댓글 함께 조회)
+전체 카드 조회 (댓글 함께 조회) - 조회 목록 설정(초기설정 생성일 기준 내림차순, 1개 조회): sort (createAt, id, title)로 설정 가능
+할일카드 완료로 변경 - 기본 생성 시 false 상태에서 true 상태로 변경 (작성자만 가능)
+댓글 - 생성,   수정, 삭제(작성자만 가능)
+댓글 조회 - 할일카드 번호(아이디)로 조회
