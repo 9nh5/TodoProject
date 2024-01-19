@@ -1,3 +1,5 @@
+Before :  https://github.com/9nh5/Todo
+
 <h1>투두앱 처음부터 새로 작성</h1>
 
 댓글 추가, 사용자 추가, 인증, 인가, 할일 완료여부 추가
@@ -9,7 +11,14 @@
 로그인 한 사용자가 자신이 작성한 할 일, 댓글만 수정 가능
 
 
-<h2>안되는거</h2>
+<h2>ERD</h2>
+![image](https://github.com/9nh5/TodoProject/assets/151013731/a2bf8fe9-1029-4511-ab46-8420d4e5d4e0)
+
+<h2>API</h2>
+![image](https://github.com/9nh5/TodoProject/assets/151013731/440b42b7-bc11-4dd0-9eba-a5005ebc053b)
+
+
+ <h2>안되는거</h2>
 
 
 <h2>수정 완료</h2>
