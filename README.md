@@ -4,13 +4,23 @@ Before :  https://github.com/9nh5/Todo
 
 <h3>기간</h3>
 2024.01.16~2024.01.19
-
-댓글 추가, 사용자 추가, 인증, 인가, 할일 완료여부 추가
+<br>
+Before에 있던 내용 : 게시글(할 일) 작성
+<br>
+Before에 없던 내용 : 댓글 추가, 사용자 추가, 인증, 인가, 할일 완료여부 추가 등
 
 <h2>해야될거</h2>
 
+댓글 추가 및 연동
+<br>
+사용자 추가
+<br>
+사용자, 게시글, 댓글 연동
+<br>
+사용자 인증, 인가
+<br>
 할일카드 완료기능 API
-
+<br>
 로그인 한 사용자가 자신이 작성한 할 일, 댓글만 수정 가능
 
 
@@ -36,7 +46,7 @@ Before :  https://github.com/9nh5/Todo
 
 포스트 완료기능 -> false 상태를 true로 바꾸는 기능 필요
  -> status (Boolean)으로 추가, updatepoststatusrequest 추가, controller, service에 false-> true 바꾸는거 추가해서 작동
-
+<br>
 작성자 - 수정, 삭제 권한 추가
 +로그인 후 포스트, 댓글 작성 시 user id 입력 필요없도록
 
