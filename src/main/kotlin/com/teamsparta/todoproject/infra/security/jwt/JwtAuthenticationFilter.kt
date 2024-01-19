@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
 
 @Component
-class JwtAuthenticationFilter(
+class JwtAuthenticationFilter(//필터 통해서 사용자 필터링함
     private val jwtPlugin: JwtPlugin
 ): OncePerRequestFilter() {
 
