@@ -7,6 +7,7 @@ import com.teamsparta.todoproject.domain.comment.exception.CommentNotFoundExcept
 import com.teamsparta.todoproject.domain.comment.exception.dto.ErrorResponse
 import com.teamsparta.todoproject.domain.comment.service.CommentService
 import com.teamsparta.todoproject.infra.security.UserPrincipal
+import io.swagger.v3.oas.annotations.Operation
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
@@ -18,6 +19,7 @@ class CommentController(
     private val commentService: CommentService
 ) {
 
+    @Operation(summary = "게시글/댓글 조회")
     @GetMapping
     fun getCommentList(@PathVariable postId: Long): ResponseEntity<List<CommentResponse>>{
         return ResponseEntity
@@ -30,6 +32,7 @@ class CommentController(
 //        TODO()
 //    }
 
+    @Operation(summary = "댓글 작성")
     @PostMapping
     fun createComment(
         @AuthenticationPrincipal userPrincipal: UserPrincipal,
@@ -42,6 +45,7 @@ class CommentController(
             .body(commentService.createComment(userPrincipal, postId, createCommentRequest))
     }
 
+    @Operation(summary = "댓글 수정")
     @PutMapping("/{commentId}")
     fun updateComment(
         @AuthenticationPrincipal userPrincipal: UserPrincipal,
@@ -54,6 +58,7 @@ class CommentController(
             .body(commentService.updateComment(userPrincipal, postId, commentId, updateCommentRequest))
     }
 
+    @Operation(summary = "댓글 삭제")
     @DeleteMapping ("/{commentId}")
     fun deleteComment(
         @AuthenticationPrincipal userPrincipal: UserPrincipal,

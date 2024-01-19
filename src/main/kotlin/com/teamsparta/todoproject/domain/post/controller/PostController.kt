@@ -10,6 +10,7 @@ import com.teamsparta.todoproject.domain.post.service.PostService
 import com.teamsparta.todoproject.domain.user.service.UserService
 import com.teamsparta.todoproject.infra.security.UserAuthorize
 import com.teamsparta.todoproject.infra.security.UserPrincipal
+import io.swagger.v3.oas.annotations.Operation
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PageableDefault
@@ -32,6 +33,7 @@ class PostController(
             .body(ErrorResponse(e.message))
     }
 
+    @Operation(summary = "할 일 카드 목록 조회")
     @GetMapping
     fun getPostList(
         @PageableDefault(
@@ -43,6 +45,7 @@ class PostController(
             .body(postService.getPaginatedPostList(pageable))
     }
 
+    @Operation(summary = "할 일 카드 제목 검색")
     @GetMapping("/search")
     fun searchPostList(@RequestParam(value = "title")title : String): ResponseEntity<List<PostResponse>> {
         return ResponseEntity
@@ -50,6 +53,7 @@ class PostController(
             .body(postService.searchPostList(title))
     }
 
+    @Operation(summary = "할 일 카드 단건 조회")
     @GetMapping("/{postId}")
     fun getPost(@PathVariable postId: Long): ResponseEntity<PostResponse>{
         return ResponseEntity
@@ -57,6 +61,7 @@ class PostController(
             .body(postService.getPostById(postId))
     }
 
+    @Operation(summary = "할 일 카드 작성")
     @PostMapping
     fun createPost(
         @AuthenticationPrincipal userPrincipal:UserPrincipal,
@@ -67,6 +72,7 @@ class PostController(
             .body(postService.createPost(userPrincipal, createPostRequest))
     }
 
+    @Operation(summary = "할 일 카드 수정")
     @PutMapping("/{postId}")
     fun updatePost(
         @AuthenticationPrincipal userPrincipal: UserPrincipal,
@@ -79,7 +85,7 @@ class PostController(
     }
 
 
-
+    @Operation(summary = "할 일 완료")
     @PatchMapping("/{postId}")
     fun updatePostStatus(
         @AuthenticationPrincipal userPrincipal: UserPrincipal,
@@ -91,6 +97,7 @@ class PostController(
             .body(postService.updatePostStatus(userPrincipal, postId, updatePostStatusRequest))
     }
 
+    @Operation(summary = "할 일 카드 삭제")
     @DeleteMapping("/{postId}")
     fun deleteCard(
         @AuthenticationPrincipal userPrincipal: UserPrincipal,
