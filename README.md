@@ -12,7 +12,9 @@ Before :  https://github.com/9nh5/Todo
 
 
 <h2>ERD</h2>
-![스크린샷 2024-01-19 133927](https://github.com/9nh5/TodoProject/assets/151013731/b38821fd-b021-4ede-adbd-2189cb7cc2e5.png)
+
+![스크린샷 2024-01-19 133927](https://github.com/9nh5/TodoProject/assets/151013731/1d4cf01e-e824-4128-8528-10bae5bdd2f7)
+
 
 
 <h2>API</h2>
