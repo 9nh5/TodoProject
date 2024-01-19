@@ -46,11 +46,19 @@ class PostController(
     }
 
     @Operation(summary = "할 일 카드 제목 검색")
-    @GetMapping("/search")
-    fun searchPostList(@RequestParam(value = "title")title : String): ResponseEntity<List<PostResponse>> {
+    @GetMapping("/searchtitle")
+    fun searchPostListByTitle(@RequestParam(value = "title")title : String): ResponseEntity<List<PostResponse>> {
         return ResponseEntity
             .status(HttpStatus.OK)
-            .body(postService.searchPostList(title))
+            .body(postService.searchPostListByTitle(title))
+    }
+
+    @Operation(summary = "할 일 카드 이름 검색")
+    @GetMapping("/searchname")
+    fun searchPostListByName(@RequestParam(value = "name")name : String): ResponseEntity<List<PostResponse>> {
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(postService.searchPostListByName(name))
     }
 
     @Operation(summary = "할 일 카드 단건 조회")

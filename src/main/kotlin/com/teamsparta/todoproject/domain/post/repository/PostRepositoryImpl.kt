@@ -20,6 +20,12 @@ class PostRepositoryImpl: QueryDslSupport(), CustomPostRepository {
             .fetch()
     }
 
+    override fun searchPostListByName(name: String): List<Post> {
+        return queryFactory.selectFrom(post)
+            .where(post.user.profile.name.containsIgnoreCase(name))
+            .fetch()
+    }
+
     override fun findByPageable(pageable: Pageable): Page<Post> {
         val totalCount = queryFactory.select(post.count()).from(post).fetchOne()?:0L
 

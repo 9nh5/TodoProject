@@ -27,8 +27,12 @@ class PostServiceImpl(
     private val encoder: PasswordEncoder
 ): PostService{
 
-    override fun searchPostList(title: String): List<PostResponse>? {
+    override fun searchPostListByTitle(title: String): List<PostResponse>? {
         return postRepository.searchPostListByTitle(title).map { it.toResponse() }
+    }
+
+    override fun searchPostListByName(name: String): List<PostResponse>? {
+        return postRepository.searchPostListByName(name).map { it.toResponse() }
     }
 
     override fun getAllPostList(): List<PostResponse> {

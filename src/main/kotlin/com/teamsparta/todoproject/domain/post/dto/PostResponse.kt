@@ -10,5 +10,6 @@ data class PostResponse(
     val createdAt: LocalDateTime,
     val status: Boolean,
     val user_id: Long,
+    val name: String,
     val comments: List<CommentResponse>
 )

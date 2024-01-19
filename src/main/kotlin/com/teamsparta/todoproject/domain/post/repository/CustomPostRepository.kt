@@ -8,4 +8,5 @@ interface CustomPostRepository {
 
     fun findByPageable(pageable: Pageable): Page<Post>
     fun searchPostListByTitle(title: String): List<Post>
+    fun searchPostListByName(name: String): List<Post>
 }

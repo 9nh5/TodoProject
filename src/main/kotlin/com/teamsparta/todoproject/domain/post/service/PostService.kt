@@ -22,7 +22,9 @@ interface PostService {
 
     fun deletePost(userPrincipal: UserPrincipal, PostId: Long)
 
-    fun searchPostList(title: String): List<PostResponse>?
+    fun searchPostListByTitle(title: String): List<PostResponse>?
+
+    fun searchPostListByName(name: String): List<PostResponse>?
 
     fun getPaginatedPostList(pageable: Pageable): Page<PostResponse>
 }

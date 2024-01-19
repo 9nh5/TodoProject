@@ -15,6 +15,9 @@ class Post(
     @Column(name = "title")
     var title: String,
 
+//    @Column(name = "name")
+//    var name: String,
+
     @Column(name = "content")
     var content: String,
 
@@ -54,6 +57,7 @@ fun Post.toResponse(): PostResponse {
         createdAt = createdAt,
         status = status,
         user_id = user.id!!,
+        name = user.profile.name,
         comments = comments.map { it.toResponse() }
     )
 }
