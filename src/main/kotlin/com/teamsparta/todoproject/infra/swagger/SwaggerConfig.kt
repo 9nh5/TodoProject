@@ -30,9 +30,9 @@ class SwaggerConfiguration {
             )
             .info(
                 Info()
-                    .title("TODO API")
-                    .description("TODO API schema")
-                    .version("1.0.0")
+                    .title("TODO Project API")
+                    .description("새로 만든 투두 페이지입니다")
+                    .version("1.0.1")
             )
     }
 }
