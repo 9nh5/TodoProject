@@ -12,10 +12,12 @@ Before :  https://github.com/9nh5/Todo
 
 
 <h2>ERD</h2>
-![image](https://github.com/9nh5/TodoProject/assets/151013731/a2bf8fe9-1029-4511-ab46-8420d4e5d4e0)
+![스크린샷 2024-01-19 115122](https://github.com/9nh5/TodoProject/assets/151013731/8876188a-f214-42c0-842d-ee1e54c084b2)
+
 
 <h2>API</h2>
-![image](https://github.com/9nh5/TodoProject/assets/151013731/440b42b7-bc11-4dd0-9eba-a5005ebc053b)
+![image](https://github.com/9nh5/TodoProject/assets/151013731/56443bb3-bc0c-4cd2-92cd-661bd3780cea)
+
 
 
  <h2>안되는거</h2>
