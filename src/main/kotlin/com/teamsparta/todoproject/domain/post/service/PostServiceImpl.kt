@@ -13,6 +13,8 @@ import com.teamsparta.todoproject.domain.post.repository.PostRepository
 import com.teamsparta.todoproject.domain.user.exception.UserNotFoundException
 import com.teamsparta.todoproject.domain.user.repository.UserRepository
 import com.teamsparta.todoproject.infra.security.UserPrincipal
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
@@ -31,6 +33,10 @@ class PostServiceImpl(
 
     override fun getAllPostList(): List<PostResponse> {
         return postRepository.findAll().map {it.toResponse()}
+    }
+
+    override fun getPaginatedPostList(pageable: Pageable): Page<PostResponse> {
+        return postRepository.findByPageable(pageable).map { it.toResponse() }
     }
 
 //    @StopWatch

@@ -10,6 +10,9 @@ import com.teamsparta.todoproject.domain.post.service.PostService
 import com.teamsparta.todoproject.domain.user.service.UserService
 import com.teamsparta.todoproject.infra.security.UserAuthorize
 import com.teamsparta.todoproject.infra.security.UserPrincipal
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
+import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
@@ -30,10 +33,14 @@ class PostController(
     }
 
     @GetMapping
-    fun getPostList(): ResponseEntity<List<PostResponse>>{
+    fun getPostList(
+        @PageableDefault(
+            size = 15,
+            sort = ["createdAt"]
+        ) pageable: Pageable): ResponseEntity<Page<PostResponse>>{
         return ResponseEntity
             .status(HttpStatus.OK)
-            .body(postService.getAllPostList())
+            .body(postService.getPaginatedPostList(pageable))
     }
 
     @GetMapping("/search")

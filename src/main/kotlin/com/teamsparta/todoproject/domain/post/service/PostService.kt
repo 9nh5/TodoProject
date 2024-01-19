@@ -5,6 +5,8 @@ import com.teamsparta.todoproject.domain.post.dto.PostResponse
 import com.teamsparta.todoproject.domain.post.dto.UpdatePostRequest
 import com.teamsparta.todoproject.domain.post.dto.UpdatePostStatusRequest
 import com.teamsparta.todoproject.infra.security.UserPrincipal
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 
 interface PostService {
 
@@ -21,4 +23,6 @@ interface PostService {
     fun deletePost(userPrincipal: UserPrincipal, PostId: Long)
 
     fun searchPostList(title: String): List<PostResponse>?
+
+    fun getPaginatedPostList(pageable: Pageable): Page<PostResponse>
 }

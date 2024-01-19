@@ -1,6 +1,7 @@
 package com.teamsparta.todoproject.domain.post.model
 
 import com.teamsparta.todoproject.domain.comment.model.Comment
+import com.teamsparta.todoproject.domain.comment.model.toResponse
 import com.teamsparta.todoproject.domain.post.dto.PostResponse
 import com.teamsparta.todoproject.domain.user.model.User
 import jakarta.persistence.*
@@ -52,6 +53,7 @@ fun Post.toResponse(): PostResponse {
         content = content,
         createdAt = createdAt,
         status = status,
-        user_id = user.id!!
+        user_id = user.id!!,
+        comments = comments.map { it.toResponse() }
     )
 }
