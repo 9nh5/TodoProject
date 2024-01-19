@@ -15,9 +15,6 @@ class Post(
     @Column(name = "title")
     var title: String,
 
-//    @Column(name = "name")
-//    var name: String,
-
     @Column(name = "content")
     var content: String,
 

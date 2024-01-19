@@ -1,15 +1,17 @@
 package com.teamsparta.todoproject.domain.user.service
 
-import com.teamsparta.todoproject.domain.user.dto.LoginRequest
-import com.teamsparta.todoproject.domain.user.dto.LoginResponse
-import com.teamsparta.todoproject.domain.user.dto.SignUpRequest
-import com.teamsparta.todoproject.domain.user.dto.UserResponse
+import com.teamsparta.todoproject.domain.user.dto.*
+import com.teamsparta.todoproject.infra.security.UserPrincipal
 
 interface UserService {
 
-    fun getUserProfileById(UserId: Long): UserResponse
+    fun getUserProfileById(userId: Long): UserResponse
+
+    fun searchUserName(name: String): List<UserResponse>?
 
     fun signUp(request: SignUpRequest): UserResponse
 
     fun login(request: LoginRequest): LoginResponse
+
+    fun updateUserProfile(userPrincipal: UserPrincipal, updateUserProfileRequest: UpdateUserProfileRequest): UserResponse
 }

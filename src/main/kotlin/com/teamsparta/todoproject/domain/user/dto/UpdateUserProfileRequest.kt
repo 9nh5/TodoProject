@@ -1,9 +1,6 @@
 package com.teamsparta.todoproject.domain.user.dto
 
-data class UserResponse(
-    val id: Long,
-    val email: String,
+data class UpdateUserProfileRequest (
     val name: String,
-    val role: String,
     val introduce: String
 )

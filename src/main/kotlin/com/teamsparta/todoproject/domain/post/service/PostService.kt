@@ -20,7 +20,7 @@ interface PostService {
 
     fun updatePostStatus(userPrincipal: UserPrincipal, postId: Long, request: UpdatePostStatusRequest): PostResponse
 
-    fun deletePost(userPrincipal: UserPrincipal, PostId: Long)
+    fun deletePost(userPrincipal: UserPrincipal, postId: Long)
 
     fun searchPostListByTitle(title: String): List<PostResponse>?
 

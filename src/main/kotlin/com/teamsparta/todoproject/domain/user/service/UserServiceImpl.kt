@@ -1,9 +1,7 @@
 package com.teamsparta.todoproject.domain.user.service
 
-import com.teamsparta.todoproject.domain.user.dto.LoginRequest
-import com.teamsparta.todoproject.domain.user.dto.LoginResponse
-import com.teamsparta.todoproject.domain.user.dto.SignUpRequest
-import com.teamsparta.todoproject.domain.user.dto.UserResponse
+import com.teamsparta.todoproject.domain.exception.dto.NotAuthorizationException
+import com.teamsparta.todoproject.domain.user.dto.*
 import com.teamsparta.todoproject.domain.user.exception.InvalidCredentialException
 import com.teamsparta.todoproject.domain.user.exception.UserNotFoundException
 import com.teamsparta.todoproject.domain.user.model.Profile
@@ -11,6 +9,7 @@ import com.teamsparta.todoproject.domain.user.model.User
 import com.teamsparta.todoproject.domain.user.model.UserRole
 import com.teamsparta.todoproject.domain.user.model.toResponse
 import com.teamsparta.todoproject.domain.user.repository.UserRepository
+import com.teamsparta.todoproject.infra.security.UserPrincipal
 import com.teamsparta.todoproject.infra.security.jwt.JwtPlugin
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -26,6 +25,10 @@ class UserServiceImpl (
     override fun getUserProfileById(userId: Long): UserResponse {
         val user = userRepository.findByIdOrNull(userId) ?: throw UserNotFoundException("User", userId)
         return user.toResponse()
+    }
+
+    override fun searchUserName(name: String): List<UserResponse>? {
+        return userRepository.searchUserName(name).map { it.toResponse() }
     }
 
     override fun login(request: LoginRequest): LoginResponse {
@@ -51,7 +54,8 @@ class UserServiceImpl (
                 email = request.email,
                 password = passwordEncoder.encode(request.password),
                 profile = Profile(
-                    name = request.name
+                    name = request.name,
+                    introduce = request.introduce
                 ),
                 role = when (request.role) {
                     "User" -> UserRole.User
@@ -60,6 +64,16 @@ class UserServiceImpl (
                 }
             )
         ).toResponse()
+    }
+
+    override fun updateUserProfile(userPrincipal: UserPrincipal, updateUserProfileRequest: UpdateUserProfileRequest): UserResponse {
+        val user = userRepository.findByIdOrNull(userPrincipal.id)?: throw UserNotFoundException("User", null)
+        if(user.id != userPrincipal.id) throw NotAuthorizationException()
+        user.profile = Profile(
+            name = updateUserProfileRequest.name,
+            introduce = updateUserProfileRequest.introduce
+        )
+        return userRepository.save(user).toResponse()
     }
 
 

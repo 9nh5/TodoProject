@@ -6,7 +6,8 @@ data class UserProfileResponse(
     val id: Long,
     val name: String,
     val email: String,
-    val role: String
+    val role: String,
+    val introduce: String
 )
 {
     companion object {
@@ -14,7 +15,8 @@ data class UserProfileResponse(
             id = user.id!!,
             name = user.profile.name,
             email = user.email,
-            role = user.role.name
+            role = user.role.name,
+            introduce = user.profile.introduce
         )
     }
 }
