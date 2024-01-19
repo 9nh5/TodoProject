@@ -11,17 +11,13 @@
 
 <h2>안되는거</h2>
 
-작성자 - 수정, 삭제 권한 추가 해야됨
-
-
-<h3>추가로</h3>
-
-+ 로그인 시 비밀번호 틀렸을 때 나오는 JWT verifition failed로 나오는거 수정?
 
 <h2>수정 완료</h2>
-
-포스트 단건 조회 시 아무것도 안나옴 -> StopWatch 없애니까 작동
 
 포스트 완료기능 -> false 상태를 true로 바꾸는 기능 필요
  -> status (Boolean)으로 추가, updatepoststatusrequest 추가, controller, service에 false-> true 바꾸는거 추가해서 작동
 
+작성자 - 수정, 삭제 권한 추가
++로그인 후 포스트, 댓글 작성 시 user id 입력 필요없도록
+
+리스트 조회
