@@ -34,6 +34,8 @@ fun Comment.toResponse(): CommentResponse{
     return CommentResponse(
         id = id!!,
         description = description,
-        createdAt = createdAt
+        createdAt = createdAt,
+        post_id = post.id!!,
+        user_id = user.id!!
     )
 }

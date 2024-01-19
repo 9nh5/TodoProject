@@ -2,6 +2,7 @@ package com.teamsparta.todoproject.domain.post.service
 
 //import com.teamsparta.todoproject.domain.post.model.PostStatus
 import com.teamsparta.todoproject.domain.exception.PostNotFoundException
+import com.teamsparta.todoproject.domain.exception.dto.NotAuthorizationException
 import com.teamsparta.todoproject.domain.post.dto.CreatePostRequest
 import com.teamsparta.todoproject.domain.post.dto.PostResponse
 import com.teamsparta.todoproject.domain.post.dto.UpdatePostRequest
@@ -53,8 +54,10 @@ class PostServiceImpl(
 
     @Transactional
     override fun updatePost(userPrincipal: UserPrincipal, postId: Long, request: UpdatePostRequest): PostResponse {
-        val user = userRepository.findByIdOrNull(userPrincipal.id)?: throw UserNotFoundException("User", null)
+        userRepository.findByIdOrNull(userPrincipal.id)?: throw UserNotFoundException("User", null)
         val post = postRepository.findByIdOrNull(postId)?: throw PostNotFoundException("Post", postId)
+        if(post.user.id != userPrincipal.id) throw NotAuthorizationException()//사용자 일치하는지 확인
+//        val post = postRepository.findByUserIdAndId(userId=userPrincipal.id, postId)?: throw PostNotFoundException("Post", postId) //사용자 권한 확인 2
         val (title, content) = request
 
 
@@ -68,6 +71,7 @@ class PostServiceImpl(
     override fun updatePostStatus(userPrincipal: UserPrincipal, postId: Long, request: UpdatePostStatusRequest): PostResponse {
         userRepository.findByIdOrNull(userPrincipal.id)?: throw UserNotFoundException("User", null)
         val post = postRepository.findByIdOrNull(postId)?: throw PostNotFoundException("Post", postId)
+        if(post.user.id != userPrincipal.id) throw NotAuthorizationException()
 
         post.status = true
 
@@ -78,7 +82,9 @@ class PostServiceImpl(
     @Transactional
     override fun deletePost(userPrincipal: UserPrincipal, postId: Long) {
         userRepository.findByIdOrNull(userPrincipal.id)?: throw UserNotFoundException("User", null)
-        postRepository.findByIdOrNull(postId)?.let { postRepository.delete(it) }?: throw PostNotFoundException("Post", postId)
+        val post = postRepository.findByIdOrNull(postId)?: throw PostNotFoundException("Post", postId)
+        if(post.user.id != userPrincipal.id) throw NotAuthorizationException()
+        postRepository.delete(post)
 
     }
 }

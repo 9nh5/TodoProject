@@ -7,5 +7,6 @@ data class PostResponse(
     val title: String,
     val content: String,
     val createdAt: LocalDateTime,
-    val status: Boolean
+    val status: Boolean,
+    val user_id: Long
 )

@@ -51,6 +51,7 @@ fun Post.toResponse(): PostResponse {
         title = title,
         content = content,
         createdAt = createdAt,
-        status = status
+        status = status,
+        user_id = user.id!!
     )
 }

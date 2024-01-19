@@ -6,8 +6,10 @@ import com.teamsparta.todoproject.domain.comment.dto.UpdateCommentRequest
 import com.teamsparta.todoproject.domain.comment.exception.CommentNotFoundException
 import com.teamsparta.todoproject.domain.comment.exception.dto.ErrorResponse
 import com.teamsparta.todoproject.domain.comment.service.CommentService
+import com.teamsparta.todoproject.infra.security.UserPrincipal
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.*
 
 @RequestMapping("/posts/{postId}/comments")
@@ -30,31 +32,35 @@ class CommentController(
 
     @PostMapping
     fun createComment(
+        @AuthenticationPrincipal userPrincipal: UserPrincipal,
         @PathVariable postId: Long,
         @RequestBody createCommentRequest: CreateCommentRequest
     ): ResponseEntity<CommentResponse> {
+        println("userPrincipal:${userPrincipal}")
         return ResponseEntity
             .status(HttpStatus.CREATED)
-            .body(commentService.createComment(postId, createCommentRequest))
+            .body(commentService.createComment(userPrincipal, postId, createCommentRequest))
     }
 
     @PutMapping("/{commentId}")
     fun updateComment(
+        @AuthenticationPrincipal userPrincipal: UserPrincipal,
         @PathVariable postId: Long,
         @PathVariable commentId: Long,
         @RequestBody updateCommentRequest: UpdateCommentRequest
     ): ResponseEntity<CommentResponse> {
         return ResponseEntity
             .status(HttpStatus.OK)
-            .body(commentService.updateComment(postId, commentId, updateCommentRequest))
+            .body(commentService.updateComment(userPrincipal, postId, commentId, updateCommentRequest))
     }
 
     @DeleteMapping ("/{commentId}")
     fun deleteComment(
+        @AuthenticationPrincipal userPrincipal: UserPrincipal,
         @PathVariable postId: Long,
         @PathVariable commentId: Long
     ): ResponseEntity<Unit> {
-        commentService.deleteComment(postId, commentId)
+        commentService.deleteComment(userPrincipal, postId, commentId)
         return ResponseEntity
             .status(HttpStatus.NO_CONTENT)
             .build()

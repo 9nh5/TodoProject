@@ -15,4 +15,11 @@ class GlobalExceptionalHandler {
             .status(HttpStatus.NOT_FOUND)
             .body(ErrorResponse(e.message))
     }
+
+    @ExceptionHandler(NotAuthorizationException::class)
+    fun handleNotAuthorizationException(e: NotAuthorizationException): ResponseEntity<ErrorResponse> {
+        return ResponseEntity
+            .status(HttpStatus.NOT_FOUND)
+            .body(ErrorResponse(e.message))
+    }
 }

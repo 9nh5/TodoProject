@@ -3,6 +3,7 @@ package com.teamsparta.todoproject.domain.comment.service
 import com.teamsparta.todoproject.domain.comment.dto.CommentResponse
 import com.teamsparta.todoproject.domain.comment.dto.CreateCommentRequest
 import com.teamsparta.todoproject.domain.comment.dto.UpdateCommentRequest
+import com.teamsparta.todoproject.infra.security.UserPrincipal
 
 interface CommentService {
 
@@ -10,9 +11,9 @@ interface CommentService {
 
 //    fun getCommentById(postId: Long, commentId: Long): CommentResponse
 
-    fun createComment(postId: Long, request: CreateCommentRequest): CommentResponse
+    fun createComment(userPrincipal: UserPrincipal, postId: Long, request: CreateCommentRequest): CommentResponse
 
-    fun updateComment(postId: Long, commentId: Long, request: UpdateCommentRequest): CommentResponse
+    fun updateComment(userPrincipal: UserPrincipal, postId: Long, commentId: Long, request: UpdateCommentRequest): CommentResponse
 
-    fun deleteComment(postId: Long, commentId: Long)
+    fun deleteComment(userPrincipal: UserPrincipal, postId: Long, commentId: Long)
 }
