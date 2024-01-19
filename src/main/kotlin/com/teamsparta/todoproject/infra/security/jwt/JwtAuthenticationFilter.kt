@@ -5,9 +5,7 @@ import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.http.HttpHeaders
-import org.springframework.security.core.Authentication
 import org.springframework.security.core.context.SecurityContextHolder
-import org.springframework.security.web.authentication.WebAuthenticationDetails
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
@@ -27,6 +25,7 @@ class JwtAuthenticationFilter(
         filterChain: FilterChain
     ) {
         val jwt = request.getBearerToken()
+        val user = getUserSubject(jwt)
 
         if (jwt != null) {
             jwtPlugin.validateToken(jwt)
@@ -55,4 +54,10 @@ class JwtAuthenticationFilter(
         val headerValue = this.getHeader(HttpHeaders.AUTHORIZATION) ?: return null
         return BEARER_PATTERN.find(headerValue)?.groupValues?.get(1)
     }
+
+    private fun getUserSubject(jwt: String?) = (
+            jwt?. takeIf { it.length >=10 }
+                ?.let { jwtPlugin.validateToken(it) }
+                ?: "anonymous:anonymous"
+            )
 }

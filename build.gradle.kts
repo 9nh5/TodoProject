@@ -6,6 +6,7 @@ plugins {
     kotlin("jvm") version "1.9.21"
     kotlin("plugin.spring") version "1.9.21"
     kotlin("plugin.noarg") version "1.8.22"
+    kotlin("kapt") version "1.8.22"
 }
 
 noArg {
@@ -38,6 +39,12 @@ repositories {
     mavenCentral()
 }
 
+val queryDslVersion = "5.0.0"
+
+val kotestVersion = "5.5.5"
+
+val mockkVersion = "1.13.8"
+
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
@@ -47,12 +54,22 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-aop")
     implementation("com.h2database:h2")
 
+    testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
+    testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
+    testImplementation("io.kotest.extensions:kotest-extensions-spring:1.1.3")
+    testImplementation("io.mockk:mockk:$mockkVersion")
+
+    implementation("com.querydsl:querydsl-jpa:$queryDslVersion:jakarta")
+
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("io.jsonwebtoken:jjwt-api:0.12.3")
 
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     implementation ("org.postgresql:postgresql")
+
+    kapt("com.querydsl:querydsl-apt:$queryDslVersion:jakarta")
+
     runtimeOnly("org.postgresql:postgresql")
     runtimeOnly("io.jsonwebtoken:jjwt-impl:0.12.3")
     runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.12.3")

@@ -31,15 +31,14 @@ class UserServiceImpl (
     override fun login(request: LoginRequest): LoginResponse {
         val user = userRepository.findByEmail(request.email) ?: throw UserNotFoundException("User", null)
 
-        if(user.role.name != request.role || !passwordEncoder.matches(request.password, user.password)) {
-            throw InvalidCredentialException()
-        }
+        if(!passwordEncoder.matches(request.password, user.password)) throw InvalidCredentialException()
+
         return LoginResponse(
-            accessToken = jwtPlugin.generateAccesToken(
+            accessToken = jwtPlugin.generateAccessToken(
                 subject = user.id.toString(),
                 email = user.email,
                 role = user.role.name
-            )
+            ), user.email, user.role.name
         )
     }
 
