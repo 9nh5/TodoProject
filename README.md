@@ -16,7 +16,8 @@ Before :  https://github.com/9nh5/Todo
 
 <h2>API</h2>
 
-![image](https://github.com/9nh5/TodoProject/assets/151013731/3be955bc-85ca-4ec3-a0ef-155c55b6d290)
+![image](https://github.com/9nh5/TodoProject/assets/151013731/7a1c945f-518b-4834-b98c-4b363230b6b4)
+
 
 
 
@@ -43,6 +44,8 @@ Before :  https://github.com/9nh5/Todo
 
 <h2>기능</h2>
 회원가입-로그인
+프로필 수정(본인만 가능)
+프로필 조회(아이디, 이름으로 조회 가능)
 할일카드(post) - 생성,  수정,삭제(작성자만 가능)
 할일카드 조회 - 작성자 이름, 할일카드 제목으로 조회, 단건 조회 (댓글 함께 조회)
 전체 카드 조회 (댓글 함께 조회) - 조회 목록 설정(초기설정 생성일 기준 내림차순, 1개 조회): sort (createAt, id, title)로 설정 가능
