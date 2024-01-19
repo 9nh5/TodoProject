@@ -11,13 +11,13 @@ Before :  https://github.com/9nh5/Todo
 로그인 한 사용자가 자신이 작성한 할 일, 댓글만 수정 가능
 
 
-<h2>ERD</h2>
+<h2>API</h2>
 
 ![스크린샷 2024-01-19 133927](https://github.com/9nh5/TodoProject/assets/151013731/1d4cf01e-e824-4128-8528-10bae5bdd2f7)
 
 
 
-<h2>API</h2>
+<h2>ERD</h2>
 
 ![image](https://github.com/9nh5/TodoProject/assets/151013731/35e3a4c5-baeb-4a59-8814-197f334c7a8c)
 
