@@ -9,7 +9,7 @@ data class PostResponse(
     val content: String,
     val createdAt: LocalDateTime,
     val status: Boolean,
-    val user_id: Long,
-    val name: String,
+    val user_id: Long,//사용자 아이디 정보만 받아옴
+    val name: String,//사용자 이름만 받아옴
     val comments: List<CommentResponse>
 )

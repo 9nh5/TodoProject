@@ -14,13 +14,13 @@ interface PostService {
 
     fun getPostById(postId: Long): PostResponse
 
-    fun createPost(userPrincipal: UserPrincipal, request: CreatePostRequest): PostResponse
+    fun createPost(userPrincipal: UserPrincipal, request: CreatePostRequest): PostResponse//userprincipal추가
 
-    fun updatePost(userPrincipal: UserPrincipal, postId: Long, request: UpdatePostRequest): PostResponse
+    fun updatePost(userPrincipal: UserPrincipal, postId: Long, request: UpdatePostRequest): PostResponse//userprincipal추가
 
-    fun updatePostStatus(userPrincipal: UserPrincipal, postId: Long, request: UpdatePostStatusRequest): PostResponse
+    fun updatePostStatus(userPrincipal: UserPrincipal, postId: Long, request: UpdatePostStatusRequest): PostResponse//userprincipal추가
 
-    fun deletePost(userPrincipal: UserPrincipal, postId: Long)
+    fun deletePost(userPrincipal: UserPrincipal, postId: Long)//userprincipal추가
 
     fun searchPostListByTitle(title: String): List<PostResponse>?
 

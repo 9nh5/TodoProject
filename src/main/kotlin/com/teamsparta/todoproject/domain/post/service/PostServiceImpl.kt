@@ -27,32 +27,32 @@ class PostServiceImpl(
     private val encoder: PasswordEncoder
 ): PostService{
 
-    override fun searchPostListByTitle(title: String): List<PostResponse>? {
+    override fun searchPostListByTitle(title: String): List<PostResponse>? {//제목으로 검색하는거
         return postRepository.searchPostListByTitle(title).map { it.toResponse() }
     }
 
-    override fun searchPostListByName(name: String): List<PostResponse>? {
+    override fun searchPostListByName(name: String): List<PostResponse>? {//사용자 이름으로 검색하는거
         return postRepository.searchPostListByName(name).map { it.toResponse() }
     }
 
-    override fun getAllPostList(): List<PostResponse> {
+    override fun getAllPostList(): List<PostResponse> {//싹 다 조회
         return postRepository.findAll().map {it.toResponse()}
     }
 
-    override fun getPaginatedPostList(pageable: Pageable): Page<PostResponse> {
+    override fun getPaginatedPostList(pageable: Pageable): Page<PostResponse> {//목록 설정하는거
         return postRepository.findByPageable(pageable).map { it.toResponse() }
     }
 
 //    @StopWatch
     @Transactional
-    override fun getPostById(postId: Long): PostResponse {
+    override fun getPostById(postId: Long): PostResponse {//게시글 아이디로 단건조회
         val post = postRepository.findByIdOrNull(postId) ?: throw PostNotFoundException("Post", postId)
         return post.toResponse()
     }
 
     @Transactional
-    override fun createPost(userPrincipal: UserPrincipal, request: CreatePostRequest): PostResponse {
-        val user = userRepository.findByIdOrNull(userPrincipal.id)?: throw UserNotFoundException("User", null)
+    override fun createPost(userPrincipal: UserPrincipal, request: CreatePostRequest): PostResponse {//userPrincipal 추가
+        val user = userRepository.findByIdOrNull(userPrincipal.id)?: throw UserNotFoundException("User", null)//로그인한 사용자 아이디 확인
         return postRepository.save<Post?>(
             Post(
                 user = user,
@@ -63,8 +63,8 @@ class PostServiceImpl(
     }
 
     @Transactional
-    override fun updatePost(userPrincipal: UserPrincipal, postId: Long, request: UpdatePostRequest): PostResponse {
-        userRepository.findByIdOrNull(userPrincipal.id)?: throw UserNotFoundException("User", null)
+    override fun updatePost(userPrincipal: UserPrincipal, postId: Long, request: UpdatePostRequest): PostResponse {//userPrincipal 추가
+        userRepository.findByIdOrNull(userPrincipal.id)?: throw UserNotFoundException("User", null)//로그인한 사용자 아이디 확인
         val post = postRepository.findByIdOrNull(postId)?: throw PostNotFoundException("Post", postId)
         if(post.user.id != userPrincipal.id) throw NotAuthorizationException()//사용자 일치하는지 확인
 //        val post = postRepository.findByUserIdAndId(userId=userPrincipal.id, postId)?: throw PostNotFoundException("Post", postId) //사용자 권한 확인 2
@@ -78,10 +78,10 @@ class PostServiceImpl(
     }
 
     @Transactional
-    override fun updatePostStatus(userPrincipal: UserPrincipal, postId: Long, request: UpdatePostStatusRequest): PostResponse {
-        userRepository.findByIdOrNull(userPrincipal.id)?: throw UserNotFoundException("User", null)
+    override fun updatePostStatus(userPrincipal: UserPrincipal, postId: Long, request: UpdatePostStatusRequest): PostResponse {//userPrincipal 추가
+        userRepository.findByIdOrNull(userPrincipal.id)?: throw UserNotFoundException("User", null)//로그인한 사용자 아이디 확인
         val post = postRepository.findByIdOrNull(postId)?: throw PostNotFoundException("Post", postId)
-        if(post.user.id != userPrincipal.id) throw NotAuthorizationException()
+        if(post.user.id != userPrincipal.id) throw NotAuthorizationException()//사용자 일치하는지 확인
 
         post.status = true
 
@@ -90,10 +90,10 @@ class PostServiceImpl(
 
 
     @Transactional
-    override fun deletePost(userPrincipal: UserPrincipal, postId: Long) {
-        userRepository.findByIdOrNull(userPrincipal.id)?: throw UserNotFoundException("User", null)
+    override fun deletePost(userPrincipal: UserPrincipal, postId: Long) {//userPrincipal 추가
+        userRepository.findByIdOrNull(userPrincipal.id)?: throw UserNotFoundException("User", null)//로그인한 사용자 아이디 확인
         val post = postRepository.findByIdOrNull(postId)?: throw PostNotFoundException("Post", postId)
-        if(post.user.id != userPrincipal.id) throw NotAuthorizationException()
+        if(post.user.id != userPrincipal.id) throw NotAuthorizationException()//사용자 일치하는지 확인
         postRepository.delete(post)
 
     }

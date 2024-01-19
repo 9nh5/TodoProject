@@ -14,7 +14,7 @@ class UserController(
     private val userService: UserService
 ) {
     @Operation(summary = "사용자 아이디 조회")
-    @GetMapping("/users/{userId}")
+    @GetMapping("/users/{userId}")//사용자 아이디로 조회
     fun getUserProfile(@PathVariable userId: Long): ResponseEntity<UserResponse> {
         return ResponseEntity
             .status(HttpStatus.OK)
@@ -22,7 +22,7 @@ class UserController(
     }
 
     @Operation(summary = "사용자 이름 검색")
-    @GetMapping("/searchuser")
+    @GetMapping("/searchuser")//사용자 이름으로 검색하는 쿼리 사용
     fun searchUserName(@RequestParam(value = "name")name : String): ResponseEntity<List<UserResponse>> {
         return ResponseEntity
             .status(HttpStatus.OK)
@@ -48,10 +48,20 @@ class UserController(
     @Operation(summary = "프로필 수정")
     @PutMapping("/updateprofile")
     fun updateUserProfile(
-        @AuthenticationPrincipal userPrincipal: UserPrincipal,
+        @AuthenticationPrincipal userPrincipal: UserPrincipal,//로그인 객체 가져오는 어노테이션, 로그인한 사용자가 작성자와 일치하는지 확인하기위함
         @RequestBody updateUserProfileRequest: UpdateUserProfileRequest): ResponseEntity<UserResponse> {
         return ResponseEntity
             .status(HttpStatus.OK)
-            .body(userService.updateUserProfile(userPrincipal, updateUserProfileRequest))
+            .body(userService.updateUserProfile(userPrincipal, updateUserProfileRequest))//principal추가
+    }
+
+    @Operation(summary = "프로필 삭제")
+    @DeleteMapping("/delete")
+    fun deleteUserProfile(
+        @AuthenticationPrincipal userPrincipal: UserPrincipal): ResponseEntity<Unit> {//로그인 객체 가져오는 어노테이션, 로그인한 사용자가 작성자와 일치하는지 확인하기위함
+        userService.deleteUserProfile(userPrincipal)//principal추가
+        return ResponseEntity
+            .status(HttpStatus.NO_CONTENT)
+            .build()
     }
 }

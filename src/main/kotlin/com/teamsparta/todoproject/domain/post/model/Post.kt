@@ -19,7 +19,7 @@ class Post(
     var content: String,
 
     @Column(name = "status", nullable = false)
-    var status: Boolean = false,
+    var status: Boolean = false,//기본 상태는 false로 지정, 완료하는거 실행했을 때만 true로 변경
 
     @Column(name = "created_at")
     var createdAt: LocalDateTime = LocalDateTime.now(),
@@ -53,8 +53,8 @@ fun Post.toResponse(): PostResponse {
         content = content,
         createdAt = createdAt,
         status = status,
-        user_id = user.id!!,
-        name = user.profile.name,
-        comments = comments.map { it.toResponse() }
+        user_id = user.id!!,//사용자 아이디 불러오는거
+        name = user.profile.name,//사용자 이름 불러오는거
+        comments = comments.map { it.toResponse() }//포스트 조회했을 때 관련 댓글 목록도 같이 나오도록함
     )
 }

@@ -16,3 +16,4 @@ class UserRepositoryImpl: QueryDslSupport(), CustomUserRepository {
             .fetch()
     }
 }
+//사용자 이름으로 검색하는 쿼리

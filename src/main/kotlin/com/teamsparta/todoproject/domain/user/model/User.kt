@@ -13,7 +13,7 @@ class User(
     val email: String,
 
     @Embedded
-    var profile: Profile,
+    var profile: Profile,//프로필에 이름, 소개 포함
 
     @Column(name = "password", nullable = false)
     val password: String,

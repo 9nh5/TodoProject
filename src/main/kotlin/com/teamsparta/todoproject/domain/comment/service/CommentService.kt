@@ -11,9 +11,9 @@ interface CommentService {
 
 //    fun getCommentById(postId: Long, commentId: Long): CommentResponse
 
-    fun createComment(userPrincipal: UserPrincipal, postId: Long, request: CreateCommentRequest): CommentResponse
+    fun createComment(userPrincipal: UserPrincipal, postId: Long, request: CreateCommentRequest): CommentResponse//userPrincipal 추가
 
-    fun updateComment(userPrincipal: UserPrincipal, postId: Long, commentId: Long, request: UpdateCommentRequest): CommentResponse
+    fun updateComment(userPrincipal: UserPrincipal, postId: Long, commentId: Long, request: UpdateCommentRequest): CommentResponse//userPrincipal 추가
 
-    fun deleteComment(userPrincipal: UserPrincipal, postId: Long, commentId: Long)
+    fun deleteComment(userPrincipal: UserPrincipal, postId: Long, commentId: Long)//userPrincipal 추가
 }

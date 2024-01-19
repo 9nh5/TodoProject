@@ -19,8 +19,8 @@ class CommentController(
     private val commentService: CommentService
 ) {
 
-    @Operation(summary = "게시글/댓글 조회")
-    @GetMapping
+    @Operation(summary = "게시글/댓글 조회")//swagger에 제목처럼 표시해줌
+    @GetMapping//댓글 목록 조회
     fun getCommentList(@PathVariable postId: Long): ResponseEntity<List<CommentResponse>>{
         return ResponseEntity
             .status(HttpStatus.OK)
@@ -33,39 +33,39 @@ class CommentController(
 //    }
 
     @Operation(summary = "댓글 작성")
-    @PostMapping
+    @PostMapping//댓글 작성
     fun createComment(
-        @AuthenticationPrincipal userPrincipal: UserPrincipal,
+        @AuthenticationPrincipal userPrincipal: UserPrincipal,//로그인 객체 가져오는 어노테이션, 로그인한 사용자가 작성자와 일치하는지 확인하기위함
         @PathVariable postId: Long,
         @RequestBody createCommentRequest: CreateCommentRequest
     ): ResponseEntity<CommentResponse> {
-        println("userPrincipal:${userPrincipal}")
+        println("userPrincipal:${userPrincipal}")//이거는 그냥 로그인 객체 잘 가져왔나 확인하는 용도, 실행시켰을 때 로그에 로그인 객체 나옴
         return ResponseEntity
             .status(HttpStatus.CREATED)
-            .body(commentService.createComment(userPrincipal, postId, createCommentRequest))
+            .body(commentService.createComment(userPrincipal, postId, createCommentRequest))//userPrincipal 추가
     }
 
     @Operation(summary = "댓글 수정")
-    @PutMapping("/{commentId}")
+    @PutMapping("/{commentId}")//댓글 수정
     fun updateComment(
-        @AuthenticationPrincipal userPrincipal: UserPrincipal,
+        @AuthenticationPrincipal userPrincipal: UserPrincipal,//동일
         @PathVariable postId: Long,
         @PathVariable commentId: Long,
         @RequestBody updateCommentRequest: UpdateCommentRequest
     ): ResponseEntity<CommentResponse> {
         return ResponseEntity
             .status(HttpStatus.OK)
-            .body(commentService.updateComment(userPrincipal, postId, commentId, updateCommentRequest))
+            .body(commentService.updateComment(userPrincipal, postId, commentId, updateCommentRequest))//동일
     }
 
     @Operation(summary = "댓글 삭제")
     @DeleteMapping ("/{commentId}")
     fun deleteComment(
-        @AuthenticationPrincipal userPrincipal: UserPrincipal,
+        @AuthenticationPrincipal userPrincipal: UserPrincipal,//동일
         @PathVariable postId: Long,
         @PathVariable commentId: Long
     ): ResponseEntity<Unit> {
-        commentService.deleteComment(userPrincipal, postId, commentId)
+        commentService.deleteComment(userPrincipal, postId, commentId)//동일
         return ResponseEntity
             .status(HttpStatus.NO_CONTENT)
             .build()

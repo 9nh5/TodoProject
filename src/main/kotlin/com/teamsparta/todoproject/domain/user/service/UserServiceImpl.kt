@@ -22,19 +22,19 @@ class UserServiceImpl (
     private val jwtPlugin: JwtPlugin
 ): UserService{
 
-    override fun getUserProfileById(userId: Long): UserResponse {
+    override fun getUserProfileById(userId: Long): UserResponse {//사용자 아이디로 조회
         val user = userRepository.findByIdOrNull(userId) ?: throw UserNotFoundException("User", userId)
         return user.toResponse()
     }
 
-    override fun searchUserName(name: String): List<UserResponse>? {
+    override fun searchUserName(name: String): List<UserResponse>? {//사용자 이름으로 검색
         return userRepository.searchUserName(name).map { it.toResponse() }
     }
 
-    override fun login(request: LoginRequest): LoginResponse {
+    override fun login(request: LoginRequest): LoginResponse {//로그인
         val user = userRepository.findByEmail(request.email) ?: throw UserNotFoundException("User", null)
 
-        if(!passwordEncoder.matches(request.password, user.password)) throw InvalidCredentialException()
+        if(!passwordEncoder.matches(request.password, user.password)) throw InvalidCredentialException()//예외처리
 
         return LoginResponse(
             accessToken = jwtPlugin.generateAccessToken(
@@ -45,7 +45,7 @@ class UserServiceImpl (
         )
     }
 
-    override fun signUp(request: SignUpRequest): UserResponse {
+    override fun signUp(request: SignUpRequest): UserResponse {//회원가입
         if (userRepository.existsByEmail(request.email)) {
             throw IllegalStateException("이미 사용중인 이메일입니다")
         }
@@ -66,14 +66,20 @@ class UserServiceImpl (
         ).toResponse()
     }
 
-    override fun updateUserProfile(userPrincipal: UserPrincipal, updateUserProfileRequest: UpdateUserProfileRequest): UserResponse {
-        val user = userRepository.findByIdOrNull(userPrincipal.id)?: throw UserNotFoundException("User", null)
-        if(user.id != userPrincipal.id) throw NotAuthorizationException()
+    override fun updateUserProfile(userPrincipal: UserPrincipal, updateUserProfileRequest: UpdateUserProfileRequest): UserResponse {//로그인한 본인만 자기 프로필 수정 가능, userprincipal 추가
+        val user = userRepository.findByIdOrNull(userPrincipal.id)?: throw UserNotFoundException("User", null)//로그인한 본인 아이디 확인
+        if(user.id != userPrincipal.id) throw NotAuthorizationException()//본인 아이디가 일치하는지 확인 아니면 예외처리
         user.profile = Profile(
             name = updateUserProfileRequest.name,
             introduce = updateUserProfileRequest.introduce
         )
         return userRepository.save(user).toResponse()
+    }
+
+    override fun deleteUserProfile(userPrincipal: UserPrincipal) {//프로필 삭제, 본인만 삭제 가능
+        val user = userRepository.findByIdOrNull(userPrincipal.id)?: throw UserNotFoundException("User", null)//로그인한 본인 아이디 확인
+        if(user.id != userPrincipal.id) throw NotAuthorizationException()//본인 아이디가 일치하는지 확인 아니면 예외처리
+        userRepository.delete(user)
     }
 
 

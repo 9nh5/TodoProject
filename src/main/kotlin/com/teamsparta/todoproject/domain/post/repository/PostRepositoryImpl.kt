@@ -10,23 +10,23 @@ import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Repository
 
 @Repository
-class PostRepositoryImpl: QueryDslSupport(), CustomPostRepository {
+class PostRepositoryImpl: QueryDslSupport(), CustomPostRepository {//쿼리문
 
     private  val post = QPost.post
 
-    override fun searchPostListByTitle(title: String) : List<Post> {
+    override fun searchPostListByTitle(title: String) : List<Post> {//제목으로 검색하는 쿼리
         return queryFactory.selectFrom(post)
             .where(post.title.containsIgnoreCase(title))
             .fetch()
     }
 
-    override fun searchPostListByName(name: String): List<Post> {
+    override fun searchPostListByName(name: String): List<Post> {//사용자 이름으로 검색하는 쿼리
         return queryFactory.selectFrom(post)
-            .where(post.user.profile.name.containsIgnoreCase(name))
+            .where(post.user.profile.name.containsIgnoreCase(name))//post의 user에 있는 profile의 이름을 가져옴
             .fetch()
     }
 
-    override fun findByPageable(pageable: Pageable): Page<Post> {
+    override fun findByPageable(pageable: Pageable): Page<Post> {//목록 설정해서 조회하는 쿼리
         val totalCount = queryFactory.select(post.count()).from(post).fetchOne()?:0L
 
         val comment = QComment.comment
@@ -36,7 +36,7 @@ class PostRepositoryImpl: QueryDslSupport(), CustomPostRepository {
             .offset(pageable.offset)
             .limit(pageable.pageSize.toLong())
 
-        if (pageable.sort.isSorted) {
+        if (pageable.sort.isSorted) {//어떤 정렬을 사용할지, 기본은 createdAt생성일이며 내림차순, 나머지는 설정한 대로 조회
             when (pageable.sort.first()?.property) {
                 "createdAt" -> query.orderBy(post.createdAt.desc())
                 "id" -> query.orderBy(post.id.asc())

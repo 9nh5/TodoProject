@@ -1,6 +1,6 @@
 package com.teamsparta.todoproject.domain.user.dto
 
-data class UserResponse(
+data class UserResponse(//기본 사용자 정보
     val id: Long,
     val email: String,
     val name: String,

@@ -2,7 +2,7 @@ package com.teamsparta.todoproject.domain.user.dto
 
 import com.teamsparta.todoproject.domain.user.model.User
 
-data class UserProfileResponse(
+data class UserProfileResponse(//프로필 정보
     val id: Long,
     val name: String,
     val email: String,

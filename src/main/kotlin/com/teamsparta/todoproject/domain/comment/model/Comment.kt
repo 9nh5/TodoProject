@@ -36,7 +36,7 @@ fun Comment.toResponse(): CommentResponse{
         description = description,
         createdAt = createdAt,
         post_id = post.id!!,
-        user_id = user.id!!,
-        name = user.profile.name
+        user_id = user.id!!,//댓글에 사용자 정보 불러오려고 추가한거
+        name = user.profile.name//댓글에 사용자 정보 불러오려고 추가한거
     )
 }

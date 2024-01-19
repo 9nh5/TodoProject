@@ -13,5 +13,7 @@ interface UserService {
 
     fun login(request: LoginRequest): LoginResponse
 
-    fun updateUserProfile(userPrincipal: UserPrincipal, updateUserProfileRequest: UpdateUserProfileRequest): UserResponse
+    fun updateUserProfile(userPrincipal: UserPrincipal, updateUserProfileRequest: UpdateUserProfileRequest): UserResponse//userprincipal 추가
+
+    fun deleteUserProfile(userPrincipal: UserPrincipal)
 }

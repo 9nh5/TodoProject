@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 class CommentServiceImpl(
-    private val commentRepository: CommentRepository,
+    private val commentRepository: CommentRepository,//각 repository와 연결
     private val postRepository: PostRepository,
     private val userRepository: UserRepository
 ) : CommentService{
@@ -27,12 +27,12 @@ class CommentServiceImpl(
     override fun getAllCommentList(postId: Long): List<CommentResponse> {
         val post = postRepository.findByIdOrNull(postId) ?: throw CommentNotFoundException("Post", postId)
         return post.comments.map { it.toResponse() }
-    }
+    }//해당 포스트 아이디로 검색해서 그 아이디에 있는 댓글들 조회. 없으면 예외처리
 
     @Transactional
-    override fun createComment(userPrincipal: UserPrincipal, postId: Long, request: CreateCommentRequest): CommentResponse {
+    override fun createComment(userPrincipal: UserPrincipal, postId: Long, request: CreateCommentRequest): CommentResponse {//userPrincipal 추가
         val post = postRepository.findByIdOrNull(postId)?: throw CommentNotFoundException("Post", postId)
-        val user = userRepository.findByIdOrNull(userPrincipal.id)?: throw UserNotFoundException("User", null)
+        val user = userRepository.findByIdOrNull(userPrincipal.id)?: throw UserNotFoundException("User", null)//로그인한 사용자 아이디 확인, 로그인한 사용자가 작성자와 일치하는지 확인하기위함
         val comment = Comment(
             description = request.description,
             post = post,
@@ -44,10 +44,10 @@ class CommentServiceImpl(
     }
 
     @Transactional
-    override fun updateComment(userPrincipal: UserPrincipal, postId: Long, commentId: Long, request: UpdateCommentRequest): CommentResponse {
+    override fun updateComment(userPrincipal: UserPrincipal, postId: Long, commentId: Long, request: UpdateCommentRequest): CommentResponse {//userPrincipal 추가
         val comment = commentRepository.findByPostIdAndId(postId, commentId)?: throw CommentNotFoundException("Comment", commentId)
-        userRepository.findByIdOrNull(userPrincipal.id)?: throw UserNotFoundException("User", null)
-        if(comment.user.id != userPrincipal.id) throw NotAuthorizationException()
+        userRepository.findByIdOrNull(userPrincipal.id)?: throw UserNotFoundException("User", null)//로그인한 사용자 아이디 확인,
+        if(comment.user.id != userPrincipal.id) throw NotAuthorizationException()//로그인한 사용자와 작성자가 일치하는지 확인하고 아니면 예외처리
         val (description) = request
 
         comment.description = description
@@ -56,11 +56,11 @@ class CommentServiceImpl(
     }
 
     @Transactional
-    override fun deleteComment(userPrincipal: UserPrincipal, postId: Long, commentId: Long) {
+    override fun deleteComment(userPrincipal: UserPrincipal, postId: Long, commentId: Long) {//userPrincipal 추가
         val post = postRepository.findByIdOrNull(postId)?: throw PostNotFoundException("Post", postId)
         val comment = commentRepository.findByIdOrNull(commentId)?: throw CommentNotFoundException("Comment", commentId)
-        userRepository.findByIdOrNull(userPrincipal.id)?: throw UserNotFoundException("User", null)
-        if(comment.user.id != userPrincipal.id) throw NotAuthorizationException()
+        userRepository.findByIdOrNull(userPrincipal.id)?: throw UserNotFoundException("User", null)//로그인한 사용자 아이디 확인,
+        if(comment.user.id != userPrincipal.id) throw NotAuthorizationException()//로그인한 사용자와 작성자가 일치하는지 확인하고 아니면 예외처리
         post.deleteComment(comment)
         postRepository.save(post)
     }

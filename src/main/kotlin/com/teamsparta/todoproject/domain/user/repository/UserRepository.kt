@@ -9,5 +9,5 @@ interface UserRepository : JpaRepository<User, Long>{
 
     fun findByEmail(email: String): User?
 
-    fun searchUserName(name: String): List<User>
+    fun searchUserName(name: String): List<User>//사용자 이름으로 검색
 }
